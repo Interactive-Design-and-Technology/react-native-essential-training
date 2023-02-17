@@ -27,7 +27,7 @@ class App extends React.Component {
       toValue: direction * (width / 2),
       duration: 1000,
       easing: Easing.ease,
-    }).start(({ finished }) => {
+    }).start(({finished}) => {
       if (finished) {
         this.animateTitle(-1 * direction);
       }
@@ -36,16 +36,16 @@ class App extends React.Component {
   async componentDidMount() {
     this.animateTitle();
     const deals = await ajax.fetchInitialDeals();
-    this.setState({ deals });
+    this.setState({deals});
   }
-  searchDeals = async (searchTerm) => {
+  searchDeals = async searchTerm => {
     let dealsFromSearch = [];
     if (searchTerm) {
       dealsFromSearch = await ajax.fetchDealSearchResults(searchTerm);
     }
-    this.setState({ dealsFromSearch, activeSearchTerm: searchTerm });
+    this.setState({dealsFromSearch, activeSearchTerm: searchTerm});
   };
-  setCurrentDeal = (dealId) => {
+  setCurrentDeal = dealId => {
     this.setState({
       currentDealId: dealId,
     });
@@ -56,7 +56,7 @@ class App extends React.Component {
     });
   };
   currentDeal = () => {
-    return this.state.deals.find((deal) => deal.key === this.state.currentDealId);
+    return this.state.deals.find(deal => deal.key === this.state.currentDealId);
   };
   render() {
     if (this.state.currentDealId) {
@@ -86,7 +86,7 @@ class App extends React.Component {
       );
     }
     return (
-      <Animated.View style={[{ left: this.titleXPos }, styles.container]}>
+      <Animated.View style={[{left: this.titleXPos}, styles.container]}>
         <Text style={styles.header}>Bakesale</Text>
       </Animated.View>
     );

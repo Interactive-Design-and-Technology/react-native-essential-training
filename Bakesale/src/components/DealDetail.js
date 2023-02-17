@@ -14,7 +14,7 @@ import {
   Linking,
 } from 'react-native';
 
-import { priceDisplay } from '../util';
+import {priceDisplay} from '../util';
 import ajax from '../ajax';
 
 class DealDetail extends React.Component {
@@ -35,28 +35,31 @@ class DealDetail extends React.Component {
         }).start(() => this.handleSwipe(-1 * direction));
       } else {
         Animated.spring(this.imageXPos, {
-          toValue: 0
+          toValue: 0,
         }).start();
       }
-    }
+    },
   });
 
-  handleSwipe = (indexDirection) => {
+  handleSwipe = indexDirection => {
     if (!this.state.deal.media[this.state.imageIndex + indexDirection]) {
       Animated.spring(this.imageXPos, {
-        toValue: 0
+        toValue: 0,
       }).start();
       return;
     }
-    this.setState((prevState) => ({
-      imageIndex: prevState.imageIndex + indexDirection
-    }), () => {
-      // Next image animation
-      this.imageXPos.setValue(indexDirection * this.width);
-      Animated.spring(this.imageXPos, {
-        toValue: 0
-      }).start();
-    });
+    this.setState(
+      prevState => ({
+        imageIndex: prevState.imageIndex + indexDirection,
+      }),
+      () => {
+        // Next image animation
+        this.imageXPos.setValue(indexDirection * this.width);
+        Animated.spring(this.imageXPos, {
+          toValue: 0,
+        }).start();
+      },
+    );
   };
 
   static propTypes = {
@@ -77,7 +80,7 @@ class DealDetail extends React.Component {
     Linking.openURL(this.state.deal.url);
   };
   render() {
-    const { deal } = this.state;
+    const {deal} = this.state;
     return (
       <View style={styles.deal}>
         <TouchableOpacity onPress={this.props.onBack}>
@@ -85,8 +88,8 @@ class DealDetail extends React.Component {
         </TouchableOpacity>
         <Animated.Image
           {...this.imagePanResponder.panHandlers}
-          source={{ uri: deal.media[this.state.imageIndex] }}
-          style={[{ left: this.imageXPos }, styles.image]}
+          source={{uri: deal.media[this.state.imageIndex]}}
+          style={[{left: this.imageXPos}, styles.image]}
         />
         <View>
           <Text style={styles.title}>{deal.title}</Text>
@@ -99,10 +102,7 @@ class DealDetail extends React.Component {
             </View>
             {deal.user && (
               <View style={styles.user}>
-                <Image
-                  source={{ uri: deal.user.avatar }}
-                  style={styles.avatar}
-                />
+                <Image source={{uri: deal.user.avatar}} style={styles.avatar} />
                 <Text>{deal.user.name}</Text>
               </View>
             )}
