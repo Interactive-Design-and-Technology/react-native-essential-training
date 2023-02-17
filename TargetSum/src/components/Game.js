@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { View, Text, Button, StyleSheet } from 'react-native';
+import {View, Text, Button, StyleSheet} from 'react-native';
 
 import RandomNumber from './RandomNumber';
 import shuffle from 'lodash.shuffle';
@@ -17,8 +17,8 @@ class Game extends React.Component {
     remainingSeconds: this.props.initialSeconds,
   };
   gameStatus = 'PLAYING';
-  randomNumbers = Array.from({ length: this.props.randomNumberCount }).map(
-    () => 1 + Math.floor(10 * Math.random())
+  randomNumbers = Array.from({length: this.props.randomNumberCount}).map(
+    () => 1 + Math.floor(10 * Math.random()),
   );
   target = this.randomNumbers
     .slice(0, this.props.randomNumberCount - 2)
@@ -28,14 +28,14 @@ class Game extends React.Component {
   componentDidMount() {
     this.inervalId = setInterval(() => {
       this.setState(
-        (prevState) => {
-          return { remainingSeconds: prevState.remainingSeconds - 1 };
+        prevState => {
+          return {remainingSeconds: prevState.remainingSeconds - 1};
         },
         () => {
           if (this.state.remainingSeconds === 0) {
             clearInterval(this.inervalId);
           }
-        }
+        },
       );
     }, 1000);
   }
@@ -44,11 +44,11 @@ class Game extends React.Component {
     clearInterval(this.inervalId);
   }
 
-  isNumberSelected = (numberIndex) => {
+  isNumberSelected = numberIndex => {
     return this.state.selectedIds.indexOf(numberIndex) >= 0;
   };
-  selectNumber = (numberIndex) => {
-    this.setState((prevState) => ({
+  selectNumber = numberIndex => {
+    this.setState(prevState => ({
       selectedIds: [...prevState.selectedIds, numberIndex],
     }));
   };
@@ -63,7 +63,7 @@ class Game extends React.Component {
       }
     }
   }
-  calcGameStatus = (nextState) => {
+  calcGameStatus = nextState => {
     const sumSelected = nextState.selectedIds.reduce((acc, curr) => {
       return acc + this.shuffledRandomNumbers[curr];
     }, 0);

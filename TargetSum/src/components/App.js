@@ -6,8 +6,8 @@ class App extends React.Component {
     gameId: 1,
   };
   resetGame = () => {
-    this.setState((prevState) => {
-      return { gameId: prevState.gameId + 1 };
+    this.setState(prevState => {
+      return {gameId: prevState.gameId + 1};
     });
   };
   render() {
